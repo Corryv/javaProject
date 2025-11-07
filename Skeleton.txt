@@ -1,0 +1,37 @@
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.TextField;
+
+public class PleaseProvideControllerClassName {
+
+    @FXML
+    private Canvas LinearCanvas;
+
+    @FXML
+    private TextField LinearPlus;
+
+    @FXML
+    private TextField Linear_B;
+
+    @FXML
+    private TextField Linear_M;
+
+    @FXML
+    private Canvas QuadCanvas;
+
+    @FXML
+    private TextField QuadPLus2;
+
+    @FXML
+    private TextField QuadPlus1;
+
+    @FXML
+    private TextField Quad_A;
+
+    @FXML
+    private TextField Quad_B;
+
+    @FXML
+    private TextField Quad_C;
+
+}
