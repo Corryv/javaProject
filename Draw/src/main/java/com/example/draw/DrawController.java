@@ -17,8 +17,15 @@ import java.util.ArrayList;
 public class DrawController {
 
 
+
+    @FXML
+    private TextField aTextField;
+
     @FXML
     private TextField bTextField;
+
+    @FXML
+    private TextField cTextField;
 
     @FXML
     private StackPane canvasStackPane;
@@ -42,10 +49,24 @@ public class DrawController {
     private TextField mTextField;
 
     @FXML
+    private Label quadradicLabel;
+
+    @FXML
     private SplitPane rootSplitPane;
 
     @FXML
     private VBox splitPaneVbox;
+
+
+    @FXML
+    void quadGraphButtonPressed(ActionEvent event) {
+        double a = Double.parseDouble(aTextField.getText());
+        double b = Double.parseDouble(bTextField.getText());
+        double c = Double.parseDouble(cTextField.getText());
+        ArrayList<double[]> points = quadradicCoordinates(a, b,c);
+        plot(points);
+
+    }
 
     @FXML
     private void graphButtonPressed(ActionEvent event){
@@ -85,6 +106,15 @@ public class DrawController {
         }
     return graphPoints;
     }
+    public ArrayList<double[]> quadradicCoordinates(double a, double b, double c){
+        ArrayList<double[]> graphPoints = new ArrayList<>();
+        for (double x = -10; x < 11; x+=0.1) {
+            double y = a * (Math.pow(x, 2)) + b * x + c;
+            graphPoints.add(new double[]{x, y});
+        }
+        return graphPoints;
+
+        }
 
     // plot the function
     public void plot(ArrayList<double[]>graphPoints){
