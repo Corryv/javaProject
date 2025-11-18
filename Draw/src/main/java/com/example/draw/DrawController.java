@@ -22,7 +22,7 @@ public class DrawController {
     private TextField aTextField;
 
     @FXML
-    private TextField bTextField;
+    private TextField quadbTextField;
 
     @FXML
     private TextField cTextField;
@@ -49,6 +49,10 @@ public class DrawController {
     private TextField mTextField;
 
     @FXML
+    private TextField bTextField;
+
+
+    @FXML
     private Label quadradicLabel;
 
     @FXML
@@ -61,7 +65,7 @@ public class DrawController {
     @FXML
     void quadGraphButtonPressed(ActionEvent event) {
         double a = Double.parseDouble(aTextField.getText());
-        double b = Double.parseDouble(bTextField.getText());
+        double b = Double.parseDouble(quadbTextField.getText());
         double c = Double.parseDouble(cTextField.getText());
         ArrayList<double[]> points = quadradicCoordinates(a, b,c);
         plot(points);

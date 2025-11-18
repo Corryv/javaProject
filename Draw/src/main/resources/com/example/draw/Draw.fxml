@@ -24,7 +24,7 @@
             <Button fx:id="graphButton" mnemonicParsing="false" onAction="#graphButtonPressed" prefHeight="25.0" prefWidth="69.0" text="Graph" />
             <Label fx:id="quadradicLabel" text="y = ax^2 + bx + c" />
             <TextField fx:id="aTextField" />
-            <TextField fx:id="bTextField" />
+            <TextField fx:id="quadbTextField" />
             <TextField fx:id="cTextField" prefHeight="26.0" prefWidth="64.0" />
             <Button mnemonicParsing="false" onAction="#quadGraphButtonPressed" text="Graph" />
          </children>
