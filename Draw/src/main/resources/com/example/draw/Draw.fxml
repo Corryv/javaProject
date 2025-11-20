@@ -3,36 +3,43 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="rootSplitPane" dividerPositions="0.6605351170568562" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.draw.DrawController">
-   <items>
-      <VBox fx:id="splitPaneVbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="109.0" SplitPane.resizableWithParent="false">
+<HBox fx:id="hboxContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.draw.DrawController">
+   <children>
+      <VBox fx:id="vboxContainer" prefHeight="641.0" prefWidth="250.0">
          <children>
-            <HBox fx:id="functionVbox" prefHeight="35.0" prefWidth="168.0">
-               <children>
-                  <Label fx:id="functionLabel" prefHeight="13.0" prefWidth="66.0" text="y = mx + b" />
-               </children>
-            </HBox>
-            <Label fx:id="instructionLabel" text="Enter value for m and b" />
-            <TextField fx:id="mTextField" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" />
-            <TextField fx:id="bTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="37.0" />
-            <Button fx:id="graphButton" mnemonicParsing="false" onAction="#graphButtonPressed" prefHeight="25.0" prefWidth="69.0" text="Graph" />
-            <Label fx:id="quadradicLabel" text="y = ax^2 + bx + c" />
-            <TextField fx:id="aTextField" />
-            <TextField fx:id="quadbTextField" />
-            <TextField fx:id="cTextField" prefHeight="26.0" prefWidth="64.0" />
-            <Button mnemonicParsing="false" onAction="#quadGraphButtonPressed" text="Graph" />
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="130.0" text="y = mx + b" />
+            <Label fx:id="instructionLabel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="130.0" text="Enter value for m and b" />
+            <TextField fx:id="mTextField" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+            <TextField fx:id="bTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+            <Button fx:id="graphButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#graphButtonPressed" prefHeight="25.0" prefWidth="70.0" text="Graph" />
+            <Label fx:id="quadraticLabel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="130.0" text="y = ax^2 + bx + c" />
+            <Label prefHeight="30.0" prefWidth="161.0" text="Enter value for a, b, and c" />
+            <TextField fx:id="aTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+            <TextField fx:id="quadbTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+            <TextField fx:id="cTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#quadGraphButtonPressed" prefHeight="25.0" prefWidth="70.0" text="Graph" />
+            <Separator fx:id="clearCanvasSeparator" prefHeight="52.0" prefWidth="250.0" />
+            <Button fx:id="clearCanvasButton" mnemonicParsing="false" onAction="#clearCanvasButtonPressed" prefHeight="40.0" prefWidth="116.0" text="Clear Canvas" />
+            <Separator fx:id="planeSeparator" prefHeight="45.0" prefWidth="250.0" />
+            <ImageView fx:id="cartoonPlaneImageView" fitHeight="267.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@cartoonPlane.png" />
+               </image>
+            </ImageView>
          </children>
       </VBox>
-      <StackPane fx:id="canvasStackPane" SplitPane.resizableWithParent="false">
+      <StackPane fx:id="canvasStackPane" prefHeight="819.0" prefWidth="880.0" HBox.hgrow="NEVER">
          <children>
-            <Canvas fx:id="functionCanvas" height="321.0" width="424.0" StackPane.alignment="CENTER" />
+            <Canvas fx:id="graphCanvas" height="801.0" width="867.0" StackPane.alignment="CENTER" />
          </children>
       </StackPane>
-   </items>
-</SplitPane>
+   </children>
+</HBox>

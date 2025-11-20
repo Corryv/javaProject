@@ -1,28 +1,25 @@
 package com.example.draw;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.action.Action;
 
 import java.util.ArrayList;
 
 public class DrawController {
 
-
-
     @FXML
     private TextField aTextField;
 
     @FXML
-    private TextField quadbTextField;
+    private TextField bTextField;
 
     @FXML
     private TextField cTextField;
@@ -31,16 +28,22 @@ public class DrawController {
     private StackPane canvasStackPane;
 
     @FXML
-    private Canvas functionCanvas;
+    private ImageView cartoonPlaneImageView;
 
     @FXML
-    private Label functionLabel;
+    private Button clearCanvasButton;
 
     @FXML
-    private HBox functionVbox;
+    private Separator clearCanvasSeparator;
 
     @FXML
     private Button graphButton;
+
+    @FXML
+    private Canvas graphCanvas;
+
+    @FXML
+    private HBox hboxContainer;
 
     @FXML
     private Label instructionLabel;
@@ -49,25 +52,42 @@ public class DrawController {
     private TextField mTextField;
 
     @FXML
-    private TextField bTextField;
-
-
-    @FXML
-    private Label quadradicLabel;
+    private Separator planeSeparator;
 
     @FXML
-    private SplitPane rootSplitPane;
+    private TextField quadbTextField;
 
     @FXML
-    private VBox splitPaneVbox;
+    private Label quadraticLabel;
 
+    @FXML
+    private VBox vboxContainer;
+
+    @FXML
+    void clearCanvasButtonPressed(ActionEvent event){
+        var gc = graphCanvas.getGraphicsContext2D();
+
+        double width = graphCanvas.getWidth();
+        double height = graphCanvas.getHeight();
+        double centerX = width / 2;
+        double centerY = height / 2;
+
+        // Draw background
+        gc.setFill(javafx.scene.paint.Color.BLACK);
+        gc.fillRect(0, 0, width, height);
+
+        // Draw axes
+        gc.setStroke(javafx.scene.paint.Color.WHITE);
+        gc.strokeLine(0, centerY, width, centerY); // X-axis
+        gc.strokeLine(centerX, 0, centerX, height); // Y-axis
+    }
 
     @FXML
     void quadGraphButtonPressed(ActionEvent event) {
         double a = Double.parseDouble(aTextField.getText());
         double b = Double.parseDouble(quadbTextField.getText());
         double c = Double.parseDouble(cTextField.getText());
-        ArrayList<double[]> points = quadradicCoordinates(a, b,c);
+        ArrayList<double[]> points = quadraticCoordinates(a, b,c);
         plot(points);
 
     }
@@ -82,10 +102,9 @@ public class DrawController {
     // initialize canvas
     @FXML
     public void initialize() {
-        // init graphics context object
-        var gc = functionCanvas.getGraphicsContext2D();
-        double width = functionCanvas.getWidth();
-        double height = functionCanvas.getHeight();
+        var gc = graphCanvas.getGraphicsContext2D();
+        double width = graphCanvas.getWidth();
+        double height = graphCanvas.getHeight();
         double centerX = width / 2;
         double centerY = height / 2;
 
@@ -101,18 +120,17 @@ public class DrawController {
 
     // calculate x.y coordinates (x values from -10 to 10, so 10 points total)
     public ArrayList<double[]> functionCoordinates(double m, double b){
-        // ArrayList of x,y coordinates( arraylist of arrays with type double)
+        // ArrayList of x,y coordinates( arraylist of arrays)
         ArrayList<double[]> graphPoints = new ArrayList<>();
-        for (int x = -10; x < 11; x++){
+        for (int x = -100; x < 101; x++){
             double y = m * x + b;
-            // add current point array of [x,y] to ArrayList of coordinates
             graphPoints.add(new double[]{x,y});
         }
     return graphPoints;
     }
-    public ArrayList<double[]> quadradicCoordinates(double a, double b, double c){
+    public ArrayList<double[]> quadraticCoordinates(double a, double b, double c){
         ArrayList<double[]> graphPoints = new ArrayList<>();
-        for (double x = -10; x < 11; x+=0.1) {
+        for (double x = -100; x < 101; x+=0.1) {
             double y = a * (Math.pow(x, 2)) + b * x + c;
             graphPoints.add(new double[]{x, y});
         }
@@ -122,17 +140,17 @@ public class DrawController {
 
     // plot the function
     public void plot(ArrayList<double[]>graphPoints){
-        var gc = functionCanvas.getGraphicsContext2D();
-        // get center of canvas
-        double width = functionCanvas.getWidth();
-        double height = functionCanvas.getHeight();
+        var gc = graphCanvas.getGraphicsContext2D();
+        // center of canvas
+        double width = graphCanvas.getWidth();
+        double height = graphCanvas.getHeight();
         double centerX = width / 2;
         double centerY = height / 2;
-        // pixels per graphing unit
-        double scale = 20;
+        // pixels per graphing unit, adjusts the zoom of graphCanvas
+        double scale = 5;
         gc.setStroke(javafx.scene.paint.Color.BLUE);
         gc.setLineWidth(2);
-        // get starting point
+        // starting point
         double[] startingPoint = {
                 centerX + graphPoints.get(0)[0] * scale,
                 centerY - graphPoints.get(0)[1] * scale
@@ -141,7 +159,8 @@ public class DrawController {
         for (double [] point : graphPoints){
 
             double x = centerX + point[0] * scale;
-            // subtract here because y values on screen increase as you move down (Chatgpt solution)
+            // subtract here because y values on screen increase as you move down
+            // top-left corner is at (0,0)
             double y = centerY - point[1] * scale;
             gc.strokeLine(startingPoint[0],startingPoint[1],x,y);
             startingPoint[0] = x;
