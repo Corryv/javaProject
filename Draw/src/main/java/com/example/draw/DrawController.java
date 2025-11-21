@@ -108,8 +108,8 @@ public class DrawController {
         graphCanvas.heightProperty().bind(hboxContainer.heightProperty());
         ChangeListener<Number> sizeListener = (ObservableValue<? extends Number> obs, Number oldVal, Number newVal)
                 -> drawGraph();
-        graphCanvas.widthProperty().addListener(sizeListener);
-        graphCanvas.heightProperty().addListener(sizeListener);
+        graphCanvas.widthProperty().addListener((obs, oldVal, newVal) -> drawGraph());
+        graphCanvas.heightProperty().addListener((obs, oldVal, newVal) -> drawGraph());
         drawGraph();
     }
 
