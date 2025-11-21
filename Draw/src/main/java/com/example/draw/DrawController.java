@@ -1,5 +1,7 @@
 package com.example.draw;
 import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -102,20 +104,30 @@ public class DrawController {
     // initialize canvas
     @FXML
     public void initialize() {
-        var gc = graphCanvas.getGraphicsContext2D();
+        graphCanvas.widthProperty().bind(hboxContainer.widthProperty());
+        graphCanvas.heightProperty().bind(hboxContainer.heightProperty());
+        ChangeListener<Number> sizeListener = (ObservableValue<? extends Number> obs, Number oldVal, Number newVal)
+                -> drawGraph();
+        graphCanvas.widthProperty().addListener(sizeListener);
+        graphCanvas.heightProperty().addListener(sizeListener);
+        drawGraph();
+    }
+
+    private void drawGraph() {
         double width = graphCanvas.getWidth();
         double height = graphCanvas.getHeight();
-        double centerX = width / 2;
-        double centerY = height / 2;
 
-        // Draw background
+        var gc = graphCanvas.getGraphicsContext2D();
+
         gc.setFill(javafx.scene.paint.Color.BLACK);
         gc.fillRect(0, 0, width, height);
 
-        // Draw axes
+        double centerX = width / 2.0;
+        double centerY = height / 2.0;
+
         gc.setStroke(javafx.scene.paint.Color.WHITE);
-        gc.strokeLine(0, centerY, width, centerY); // X-axis
-        gc.strokeLine(centerX, 0, centerX, height); // Y-axis
+        gc.strokeLine(0, centerY, width, centerY);   // X-axis
+        gc.strokeLine(centerX, 0, centerX, height);  // Y-axis
     }
 
     // calculate x.y coordinates (x values from -10 to 10, so 10 points total)
@@ -144,16 +156,16 @@ public class DrawController {
         // center of canvas
         double width = graphCanvas.getWidth();
         double height = graphCanvas.getHeight();
-        double centerX = width / 2;
-        double centerY = height / 2;
+        double centerX = width / 2.0;
+        double centerY = height / 2.0;
         // pixels per graphing unit, adjusts the zoom of graphCanvas
-        double scale = 5;
+        double scale = 50;
         gc.setStroke(javafx.scene.paint.Color.BLUE);
         gc.setLineWidth(2);
         // starting point
         double[] startingPoint = {
-                centerX + graphPoints.get(0)[0] * scale,
-                centerY - graphPoints.get(0)[1] * scale
+                centerX + graphPoints.getFirst()[0] * scale,
+                centerY - graphPoints.getFirst()[0] * scale
         };
 
         for (double [] point : graphPoints){
