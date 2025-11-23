@@ -1,3 +1,10 @@
+/**
+* Name:    Nick Foster, Corry Vantienen, Seth Edwards, Melissa Lopez, Julie Jimenez
+* Date:    11/23/2025
+* Class:   CSC-331
+* Purpose: loads a new scene to draw the graph
+*/
+
 package com.example.draw;
 
 import javafx.application.Application;
