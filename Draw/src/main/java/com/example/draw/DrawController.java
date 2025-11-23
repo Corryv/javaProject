@@ -1,3 +1,10 @@
+/**
+* Name:    Nick Foster, Corry Vantienen, Seth Edwards, Melissa Lopez, Julie Jimenez
+* Date:    11/23/2025
+* Class:   CSC-331
+* Purpose: controller that controls the different aspects to the calculator
+*/
+
 package com.example.draw;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
