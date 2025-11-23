@@ -142,25 +142,23 @@ public class DrawController {
         plot(points);
     }
 
+
     /**
-     * Initializes the canvas when the application loads. This method prepares
-     * the drawing surface by filling the background and drawing the X and Y axes
-     * centered on the canvas.
-     * The canvas uses getGraphicsContext2D() to initialize a Graphics Context Object
-     * The Graphics Context Object has then methods used to draw.
-     * Methods:
-     *      graphCanvas.getGraphicsContext2D()
-     *      gc.fillRect(0, 0, double width, double height)
-     *      gc.strokeLine(double startX, double startY,double endX,double endY)
-     *      gc.setStroke(javafx.scene.paint.Color.WHITE)
-     *      gc.setLineWidth(double width)
+     * Initializes the graph canvas after the FXML fields are injected.
+     * This method:
+     *  Binds the canvas width and height to the size of the containing HBox
+     *  Adds listeners to redraw the graph whenever the canvas is resized
+     *  Performs the initial draw of the graph.
+     * It is automatically invoked by the JavaFX framework after the controller is constructed.
      */
 
     // initialize canvas
     @FXML
     public void initialize() {
         GraphicsContext gc = graphCanvas.getGraphicsContext2D();
-        graphCanvas.widthProperty().bind(hboxContainer.widthProperty());
+        graphCanvas.widthProperty().bind(hboxContainer.widthProperty()
+                .subtract(vboxContainer.widthProperty())
+        );
         graphCanvas.heightProperty().bind(hboxContainer.heightProperty());
         ChangeListener<Number> sizeListener = (ObservableValue<? extends Number> obs, Number oldVal, Number newVal)
                 -> drawGraph();
@@ -168,6 +166,15 @@ public class DrawController {
         graphCanvas.heightProperty().addListener((obs, oldVal, newVal) -> drawGraph());
         drawGraph();
     }
+
+    /**
+     * Draws the graph on the canvas based on its current size.
+     * This method:
+     *  Retrieves the current width and height of the canvas,</li>
+     *  Clears and fills the background with black,</li>
+     *  Draws white X and Y axes centered on the canvas.</li>
+     * It is called during initialization and whenever the canvas is resized.
+     */
 
     private void drawGraph() {
         double width = graphCanvas.getWidth();

@@ -14,7 +14,7 @@
 
 <HBox fx:id="hboxContainer" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.draw.DrawController">
    <children>
-      <VBox fx:id="vboxContainer" prefHeight="641.0" prefWidth="250.0" spacing="5.0">
+      <VBox fx:id="vboxContainer" prefHeight="641.0" prefWidth="250.0" spacing="5.0" HBox.hgrow="ALWAYS">
          <children>
             <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="130.0" text="y = mx + b" />
             <Label fx:id="instructionLabel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="130.0" text="Enter value for m and b" />
