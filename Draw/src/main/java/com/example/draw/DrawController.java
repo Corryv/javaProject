@@ -1,14 +1,9 @@
 package com.example.draw;
 import javafx.event.ActionEvent;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -76,6 +71,10 @@ public class DrawController {
 
     @FXML
     private VBox vboxContainer;
+
+    @FXML
+    private Slider scaleSlider;
+
     /**
      * Clears and redraws the canvas. This method resets the background to black,
      * recreates the graphics context, and redraws the X and Y axes with the
@@ -156,14 +155,11 @@ public class DrawController {
     @FXML
     public void initialize() {
         GraphicsContext gc = graphCanvas.getGraphicsContext2D();
-        graphCanvas.widthProperty().bind(hboxContainer.widthProperty()
-                .subtract(vboxContainer.widthProperty())
-        );
+        graphCanvas.widthProperty().bind(hboxContainer.widthProperty().subtract(vboxContainer.widthProperty()));
         graphCanvas.heightProperty().bind(hboxContainer.heightProperty());
-        ChangeListener<Number> sizeListener = (ObservableValue<? extends Number> obs, Number oldVal, Number newVal)
-                -> drawGraph();
         graphCanvas.widthProperty().addListener((obs, oldVal, newVal) -> drawGraph());
         graphCanvas.heightProperty().addListener((obs, oldVal, newVal) -> drawGraph());
+        scaleSlider.valueProperty().addListener((obs, oldVal, newVal) -> drawGraph());
         drawGraph();
     }
 
@@ -249,7 +245,7 @@ public class DrawController {
         double centerX = width / 2;
         double centerY = height / 2;
         // pixels per graphing unit, adjusts the zoom of graphCanvas
-        double scale = 5;
+        double scale = scaleSlider.getValue();
         gc.setStroke(javafx.scene.paint.Color.BLUE);
         gc.setLineWidth(2);
         // starting point
